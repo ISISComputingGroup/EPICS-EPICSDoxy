@@ -1,4 +1,4 @@
-TOP = ../../extensions
+TOP = ../../../extensions/master
 include $(TOP)/configure/CONFIG
 
 .PHONY : doxygen
@@ -8,5 +8,5 @@ include $(TOP)/configure/CONFIG
 include $(TOP)/configure/RULES_DIRS
 
 doxygen :
-	dbToDoxygen -I $(EPICS_BASE)/dbd base.dbd epics_records.cpp
-	doxygen Doxyfile
+#	dbToDoxygen -I $(EPICS_BASE)/dbd base.dbd epics_records.cpp
+#	doxygen Doxyfile
