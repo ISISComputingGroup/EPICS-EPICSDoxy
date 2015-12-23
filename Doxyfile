@@ -42,7 +42,7 @@ PROJECT_BRIEF          = "EPICS DB Records"
 
 # ISIS: list your IOC/module "src", "db" and "iocBoot" directories
 
-INPUT                  = . 
+INPUT                  = epics_records.cpp
 
 EXCLUDE_PATTERNS = */pugi*.*
 
