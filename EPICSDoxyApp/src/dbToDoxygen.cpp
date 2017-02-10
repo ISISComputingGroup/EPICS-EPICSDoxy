@@ -85,7 +85,7 @@ int main(int argc,char **argv)
 			fprintf(stderr,"Input file MUST have .dbd extension\n");
 			exit(-1);
 		}
-		strcpy(pext,".h");
+		pext = ".h";
 	}else {
 		outFilename = (char*)dbCalloc(1,strlen(argv[2])+1);
 		strcpy(outFilename,argv[2]);
