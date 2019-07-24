@@ -20,7 +20,7 @@
 #include "gpHash.h"
 #include "osiFileName.h"
 
-DBBASE *pdbbase = NULL;
+static DBBASE *myPdbBase = NULL;
 
 int main(int argc,char **argv)
 {
@@ -90,10 +90,10 @@ int main(int argc,char **argv)
 		outFilename = (char*)dbCalloc(1,strlen(argv[2])+1);
 		strcpy(outFilename,argv[2]);
 	}
-	pdbbase = dbAllocBase();
-	pdbbase->ignoreMissingMenus = TRUE;
-	pdbbase->loadCdefs = TRUE;
-	status = dbReadDatabase(&pdbbase,argv[1],path,sub);
+	myPdbBase = dbAllocBase();
+	myPdbBase->ignoreMissingMenus = TRUE;
+	myPdbBase->loadCdefs = TRUE;
+	status = dbReadDatabase(&myPdbBase,argv[1],path,sub);
 	if(status)  {
 		errlogFlush();
 		fprintf(stderr, "dbToMenuH: Input errors, no output generated\n");
@@ -106,7 +106,7 @@ int main(int argc,char **argv)
 	}
 	fprintf(outFile,"/// @file\n/// EPICS DB record definitions\n\n");
 
-	pdbMenu = (dbMenu *)ellFirst(&pdbbase->menuList);
+	pdbMenu = (dbMenu *)ellFirst(&myPdbBase->menuList);
 	while(pdbMenu) {
 		fprintf(outFile,"/// %s EPICS DB menu\n",pdbMenu->name);
 		fprintf(outFile,"enum %s\n{\n", pdbMenu->name);
@@ -119,7 +119,7 @@ int main(int argc,char **argv)
 		fprintf(outFile,"};\n\n");
 		pdbMenu = (dbMenu *)ellNext(&pdbMenu->node);
 	}
-	pdbRecordType = (dbRecordType *)ellFirst(&pdbbase->recordTypeList);
+	pdbRecordType = (dbRecordType *)ellFirst(&myPdbBase->recordTypeList);
 	while(pdbRecordType) {
 		fprintf(outFile,"/// %s EPICS DB record\n",pdbRecordType->name);
 		fprintf(outFile,"struct %s\n{\n",pdbRecordType->name);
